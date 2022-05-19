@@ -1,9 +1,14 @@
 const express = require('express');
 const path = require('path')
 
+const db = require('./dbConnection')
+
 const userRoute = require('./routes/users')
 
 const app = express()
+
+const sync = async () => await db.sync()
+sync()
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));

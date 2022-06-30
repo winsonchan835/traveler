@@ -57,8 +57,20 @@ router.post('/users/login', async (req, res, next) => {
   }
 })
 
-router.get('/user', (req, res, next) => {
-
+router.get('/user', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.user.email)
+    if (!user) {
+      throw new Error('No such User found')
+    }
+    delete user.dataValues.password
+    user.dataValues.token = req.header('Authorization').split(' ')[1]
+    return res.status(200).json({user})
+  } catch (error) {
+    return res.status(404).json({
+      errors: { body: error.message}
+    })
+  }
 })
 
 router.patch('/user', (req, res, next) => {

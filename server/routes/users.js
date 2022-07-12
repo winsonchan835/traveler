@@ -73,8 +73,21 @@ router.get('/user', async (req, res, next) => {
   }
 })
 
-router.patch('/user', (req, res, next) => {
+// router.patch('/user', (req, res, next) => {
+//   try {
+//     const user = User.findByPk(req.user.email)
 
-})
+//     if (!user) {
+//       res.status(401)
+//       throw new Error('No user with this email')
+//     }
+
+//     if (req.body.user) {
+//       const username = req.body.user.username ? req.body.user.username : user.username
+//     }
+//   } catch (error) {
+
+//   }
+// })
 
 module.exports = router
